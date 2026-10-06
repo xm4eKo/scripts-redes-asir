@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Modificado desde produccion
+# Comentario corregido
 
 # Paleta general de colores
 blue=$'\033[34;1m'
