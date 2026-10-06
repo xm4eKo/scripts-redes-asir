@@ -11,11 +11,13 @@ reset=$'\033[0m'
 
 help_panel(){
   printf "\n%s\n" "${yellow}[?]${reset} Uso: Introduce el nombre del fichero y luego los parametros:" >&2
-  printf "\t%s\n" "${green}./script.sh <nombre-archivo> [-a|-s]${reset}" >&2
+  printf "\t%s\n" "${red}sudo${reset}${green}./script.sh <nombre-archivo> [-a|-s]${reset}" >&2
   exit 1
 }
 
-if [[ $# -ne 2 ]]; then
+# Añadimos funcionalidad para detectar si el usuario es root (para github)
+
+if [[ $# -ne 2 && $(id -u) -ne 0 ]]; then
   help_panel
 fi
 
@@ -24,5 +26,6 @@ date=$(date "+%d/%m/%Y %H:%M:%S")
 
 case $2 in
   -a) echo $date >> "$file" ;;
+  -s) echo $date > "$file" ;;
   *) help_panel ;;
 esac
